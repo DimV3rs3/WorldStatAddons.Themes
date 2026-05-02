@@ -53,6 +53,11 @@ $conf_query = new WP_Query( array(
 $news_url     = get_post_type_archive_link( 'ergo_news' ) ?: ergo_get_page_url( 'novosti' );
 $articles_url = ergo_get_page_url( 'statyi' );
 $conf_url     = get_post_type_archive_link( 'conference' ) ?: ergo_get_page_url( 'konferencii' );
+
+$wsp_countries_url = '';
+if ( class_exists( 'WorldStat_Pages' ) ) {
+	$wsp_countries_url = WorldStat_Pages::get_page_url( 'countries' );
+}
 ?>
 
 <main id="main-content" class="ergo-main ergo-front-page">
@@ -75,7 +80,7 @@ $conf_url     = get_post_type_archive_link( 'conference' ) ?: ergo_get_page_url(
                 array( 'icon' => 'dashicons-media-document',   'title' => 'Статьи',           'desc' => 'Подборка статей по визуализации данных, глобалистике и смежным темам.',                          'url' => $articles_url, 'color' => '#0ea5e9' ),
                 array( 'icon' => 'dashicons-groups',           'title' => 'Конференции',      'desc' => 'Международные и всероссийские конференции, семинары.',                                            'url' => $conf_url, 'color' => '#10b981' ),
                 array( 'icon' => 'dashicons-location-alt',     'title' => 'Карта мира',       'desc' => 'Интерактивная карта с визуализацией данных по странам.',                                          'url' => '#world-map-section',                                     'color' => '#f59e0b' ),
-                array( 'icon' => 'dashicons-admin-site-alt3',  'title' => 'Страны',           'desc' => 'Обзор всех стран с детальной статистикой.',                                                       'url' => get_post_type_archive_link( 'country' ),                  'color' => '#8b5cf6' ),
+                array( 'icon' => 'dashicons-admin-site-alt3',  'title' => 'Страны',           'desc' => 'Обзор всех стран с детальной статистикой.',                                                       'url' => $wsp_countries_url ? $wsp_countries_url : get_post_type_archive_link( 'country' ),                  'color' => '#8b5cf6' ),
                 array( 'icon' => 'dashicons-chart-bar',        'title' => 'Темы данных',      'desc' => 'Плагины для визуализации статистических данных на карте.',                                        'url' => home_url( '/data-themes/' ),                              'color' => '#ec4899' ),
                 array( 'icon' => 'dashicons-image-filter',     'title' => 'Сравнение стран',  'desc' => 'Сравнительный анализ показателей нескольких стран.',                                              'url' => home_url( '/compare/' ),                                  'color' => '#14b8a6' ),
                 array( 'icon' => 'dashicons-info-outline',     'title' => 'О платформе',      'desc' => 'О проекте, возможностях и для кого предназначена платформа.',                                    'url' => home_url( '/about/' ),                                    'color' => '#64748b' ),
@@ -91,6 +96,79 @@ $conf_url     = get_post_type_archive_link( 'conference' ) ?: ergo_get_page_url(
         </div>
     </div>
 </section>
+
+<?php if ( class_exists( 'WorldStat_Pages' ) && WorldStat_Pages::get_page_url( 'rankings' ) ) : ?>
+<section class="gl-analytics-dashboard">
+	<div class="ergo-container">
+		<h2 class="gl-section-heading">Аналитика и данные</h2>
+
+		<div class="gl-analytics-grid">
+
+			<a href="<?php echo esc_url( WorldStat_Pages::get_page_url( 'rankings' ) ); ?>" class="gl-analytics-card gl-analytics-card--large" style="--card-accent: #f59e0b;">
+				<span class="gl-analytics-card__icon">🏆</span>
+				<div class="gl-analytics-card__content">
+					<strong class="gl-analytics-card__title">Рейтинги стран</strong>
+					<p class="gl-analytics-card__desc">Показатели из ваших данных и платформы: сравнение по метрикам, региональные фильтры и таблица лидеров.</p>
+					<ul class="gl-analytics-card__features">
+						<li>📊 Топ-5 по выбранной метрике</li>
+						<li>🌍 Фильтр по регионам</li>
+						<li>📅 Для данных из CSV доступен выбор года</li>
+					</ul>
+					<span class="gl-analytics-card__action">Перейти к рейтингам →</span>
+				</div>
+			</a>
+
+			<div class="gl-analytics-small-col">
+
+				<?php $wsp_map_url = WorldStat_Pages::get_page_url( 'map-explorer' ); ?>
+				<?php if ( $wsp_map_url ) : ?>
+				<a href="<?php echo esc_url( $wsp_map_url ); ?>" class="gl-analytics-card gl-analytics-card--small" style="--card-accent: #06b6d4;">
+					<span class="gl-analytics-card__icon">🗺️</span>
+					<div class="gl-analytics-card__content">
+						<strong class="gl-analytics-card__title">Картографический исследователь</strong>
+						<p class="gl-analytics-card__desc">Хороплеты по выбранной метрике</p>
+					</div>
+				</a>
+				<?php endif; ?>
+
+				<?php $wsp_meth_url = WorldStat_Pages::get_page_url( 'methodology' ); ?>
+				<?php if ( $wsp_meth_url ) : ?>
+				<a href="<?php echo esc_url( $wsp_meth_url ); ?>" class="gl-analytics-card gl-analytics-card--small" style="--card-accent: #10b981;">
+					<span class="gl-analytics-card__icon">📖</span>
+					<div class="gl-analytics-card__content">
+						<strong class="gl-analytics-card__title">Методология</strong>
+						<p class="gl-analytics-card__desc">Источники и описание показателей</p>
+					</div>
+				</a>
+				<?php endif; ?>
+
+				<?php $wsp_panel_url = WorldStat_Pages::get_page_url( 'data-panel' ); ?>
+				<?php if ( $wsp_panel_url ) : ?>
+				<a href="<?php echo esc_url( $wsp_panel_url ); ?>" class="gl-analytics-card gl-analytics-card--small" style="--card-accent: #8b5cf6;">
+					<span class="gl-analytics-card__icon">🧪</span>
+					<div class="gl-analytics-card__content">
+						<strong class="gl-analytics-card__title">Песочница данных</strong>
+						<p class="gl-analytics-card__desc">Матрица стран × метрик, экспорт CSV</p>
+					</div>
+				</a>
+				<?php endif; ?>
+
+				<?php $wsp_cat_url = WorldStat_Pages::get_page_url( 'metrics-catalog' ); ?>
+				<?php if ( $wsp_cat_url ) : ?>
+				<a href="<?php echo esc_url( $wsp_cat_url ); ?>" class="gl-analytics-card gl-analytics-card--small" style="--card-accent: #6366f1;">
+					<span class="gl-analytics-card__icon">📋</span>
+					<div class="gl-analytics-card__content">
+						<strong class="gl-analytics-card__title">Каталог метрик</strong>
+						<p class="gl-analytics-card__desc">Все доступные показатели платформы</p>
+					</div>
+				</a>
+				<?php endif; ?>
+
+			</div>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
 
 
 <!-- ============================

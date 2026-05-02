@@ -5433,3 +5433,166 @@ a:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* ═══════════════════════════════════════════════════════
+   АНАЛИТИКА — ДАШБОРД НА ГЛАВНОЙ (World Statistics Platform)
+   ═══════════════════════════════════════════════════════ */
+.gl-analytics-dashboard {
+    background: #f8fafc;
+    padding: 60px 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.gl-analytics-dashboard .gl-section-heading {
+    margin-bottom: 36px;
+}
+
+.gl-analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .gl-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gl-analytics-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 28px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gl-analytics-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--card-accent, #2563eb);
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.gl-analytics-card:hover {
+    border-color: var(--card-accent, #2563eb);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.gl-analytics-card:hover::before {
+    opacity: 1;
+}
+
+.gl-analytics-card--large {
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gl-analytics-card--small {
+    align-items: flex-start;
+}
+
+.gl-analytics-card__icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.gl-analytics-card--large .gl-analytics-card__icon {
+    font-size: 3rem;
+}
+
+.gl-analytics-card--small .gl-analytics-card__icon {
+    font-size: 2rem;
+}
+
+.gl-analytics-card__content {
+    flex: 1;
+}
+
+.gl-analytics-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.gl-analytics-card--large .gl-analytics-card__title {
+    font-size: 1.4rem;
+}
+
+.gl-analytics-card--small .gl-analytics-card__title {
+    font-size: 1rem;
+}
+
+.gl-analytics-card__desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.gl-analytics-card--small .gl-analytics-card__desc {
+    font-size: 0.82rem;
+    margin-bottom: 0;
+}
+
+.gl-analytics-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gl-analytics-card__features li {
+    font-size: 0.88rem;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gl-analytics-card__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--card-accent, #2563eb);
+    transition: gap 0.2s;
+}
+
+.gl-analytics-card:hover .gl-analytics-card__action {
+    gap: 10px;
+}
+
+.gl-analytics-small-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .gl-analytics-small-col {
+        grid-template-columns: 1fr;
+    }
+}
