@@ -14,6 +14,9 @@ defined( 'ABSPATH' ) || exit;
  */
 function ergo_enqueue_assets() {
     // ==== Стили ====
+    // Иконки Dashicons на фронте (карточки, вкладки, темы — классы dashicons-* в разметке темы).
+    wp_enqueue_style( 'dashicons' );
+
     // Локальные шрифты (без Google Fonts CDN)
     wp_enqueue_style( 'ergo-fonts', ERGO_URI . '/assets/css/fonts.css', array(), ERGO_VERSION );
 
